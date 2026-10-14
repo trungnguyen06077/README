@@ -1,164 +1,226 @@
 # Mô phỏng cấp phát bộ nhớ: First-Fit, Best-Fit, Worst-Fit
 
-> **Bài tập lập trình giải thuật hệ điều hành** – Nhóm Memory Management / Dynamic Storage Allocation
-> Ứng dụng desktop có GUI mô phỏng ba chiến lược cấp phát vùng nhớ liên tục: **First-Fit**, **Best-Fit**, **Worst-Fit**.
+> **Bài tập lập trình giải thuật hệ điều hành** – Cơ chế Memory Management (cấp phát vùng nhớ liên tục)
+> Ứng dụng **desktop GUI viết bằng C++** mô phỏng ba chiến lược: **First-Fit**, **Best-Fit**, **Worst-Fit**.
 
 ---
 
-## 1. Thông tin nhóm
+## 1. Mục tiêu
 
-| Mục | Nội dung |
-|---|---|
-| Tên đề tài | Mô phỏng First-Fit, Best-Fit, Worst-Fit |
-| Nhóm | `<Tên nhóm>` |
-| Lớp / Học phần | `<Mã lớp>` – Hệ điều hành |
-| Giảng viên | `<Tên giảng viên>` |
-| Link repository | `<URL Git repo>` |
-| Link video demo | `<URL video>` |
+- Xây dựng ứng dụng desktop có GUI mô phỏng cơ chế cấp phát vùng nhớ của hệ điều hành.
+- **Giải thích được mô hình**: bộ nhớ gồm các hole (khối trống) và các yêu cầu cấp phát; mỗi thuật toán có một quy tắc chọn hole riêng.
+- **Chứng minh kết quả**: đối chiếu với pseudocode và kết quả tính tay trên dữ liệu có thể tái lập.
+- **Đo hiệu năng** của ba thuật toán và **trình bày sản phẩm** có thể tái lập (cùng input thì luôn cùng output).
 
-### Thành viên và phân công
+## 2. Quy mô và phân vai
+
+Nhóm **5 sinh viên**, thực hiện trong khoảng **8 tuần**.
 
 | MSSV | Họ tên | Vai trò | Phụ trách chính |
 |---|---|---|---|
-| `<MSSV>` | `<Họ tên>` | Trưởng nhóm | Quản lý tiến độ, tích hợp, review PR |
-| `<MSSV>` | `<Họ tên>` | Thuật toán | Cài đặt 3 thuật toán, pseudocode/flowchart |
-| `<MSSV>` | `<Họ tên>` | GUI / Dữ liệu | Giao diện, đọc/ghi CSV, validate dữ liệu |
-| `<MSSV>` | `<Họ tên>` | Kiểm thử | Unit/integration test, stress test, oracle |
-| `<MSSV>` | `<Họ tên>` | Báo cáo / Demo | Báo cáo, slide, video demo |
+| `<MSSV>` | `<Họ tên>` | Trưởng nhóm / Quản lý tiến độ | Kế hoạch, theo dõi issue, review & merge PR, tích hợp |
+| `<MSSV>` | `<Họ tên>` | Thuật toán | Cài đặt First/Best/Worst-Fit, pseudocode, flowchart |
+| `<MSSV>` | `<Họ tên>` | Thuật toán | Mô hình dữ liệu, đo hiệu năng, tối ưu |
+| `<MSSV>` | `<Họ tên>` | Giao diện / Dữ liệu | GUI, đọc/ghi CSV, kiểm tra dữ liệu, xử lý lỗi |
+| `<MSSV>` | `<Họ tên>` | Kiểm thử / Tài liệu | Bảng kiểm thử, báo cáo, video demo |
+
+| Thông tin | Nội dung |
+|---|---|
+| Nhóm / Lớp | `<Tên nhóm>` – `<Mã lớp>` |
+| Giảng viên | `<Tên giảng viên>` |
+| Git repository | `<URL repo>` |
+| Video demo (công khai) | `<URL video>` |
+
+### Kế hoạch 8 tuần
+
+| Tuần | Nội dung | Xong |
+|---|---|---|
+| 1 | Phân tích yêu cầu, phân vai, tạo repo, chọn thư viện GUI | ☐ |
+| 2 | Pseudocode/flowchart, định nghĩa định dạng CSV, kế hoạch kiểm thử | ☐ |
+| 3–4 | Cài đặt lõi thuật toán (`src/core`) + unit test | ☐ |
+| 5 | GUI, đọc/ghi CSV, kiểm tra dữ liệu, xử lý lỗi | ☐ |
+| 6 | Kiểm thử tích hợp, edge case, đo hiệu năng | ☐ |
+| 7 | Hoàn thiện, review chéo, sửa lỗi | ☐ |
+| 8 | Báo cáo, quay video demo, trình bày | ☐ |
 
 ---
 
-## 2. Mục tiêu
+## 3. Nhiệm vụ
 
-- Xây dựng ứng dụng **desktop có GUI** mô phỏng cơ chế cấp phát bộ nhớ liên tục trong hệ điều hành.
-- Giải thích được ba thuật toán, chứng minh tính đúng đắn bằng dữ liệu mẫu có thể lặp lại.
-- So sánh các thuật toán về mức độ phân mảnh, tỷ lệ cấp phát thành công và hiệu năng.
-- Trình bày kết quả, demo trước lớp.
+1. **Phân tích yêu cầu** – xem mục 4.
+2. **Mô tả thuật toán** bằng pseudocode / flowchart – xem mục 5.
+3. **Xây dựng ứng dụng** C++ có GUI – xem mục 6, 7, 8.
+4. **Kiểm thử** với dữ liệu có thể tái lập – xem mục 10.
+5. **Viết báo cáo** và **nộp mã nguồn đầy đủ** – xem mục 12.
 
-## 3. Tóm tắt bài toán và thuật toán
+---
 
-Cho danh sách **khối nhớ trống (hole)** và danh sách **yêu cầu cấp phát (process)**. Với mỗi yêu cầu theo thứ tự đến, hệ thống chọn một hole đủ lớn theo chiến lược:
+## 4. Phân tích bài toán
+
+Cho danh sách **hole** (khối nhớ trống, có địa chỉ bắt đầu và kích thước) và danh sách **yêu cầu cấp phát** theo thứ tự đến. Với mỗi yêu cầu, hệ thống chọn một hole đủ lớn theo chiến lược:
 
 | Thuật toán | Quy tắc chọn hole | Ưu điểm | Nhược điểm |
 |---|---|---|---|
-| **First-Fit** | Hole đầu tiên (theo địa chỉ) có `size ≥ yêu cầu` | Nhanh, đơn giản | Dồn phân mảnh ở đầu bộ nhớ |
-| **Best-Fit** | Hole nhỏ nhất thỏa `size ≥ yêu cầu` | Tiết kiệm hole lớn | Chậm hơn, sinh nhiều mảnh vụn nhỏ |
-| **Worst-Fit** | Hole lớn nhất thỏa `size ≥ yêu cầu` | Phần dư còn đủ lớn để tái sử dụng | Phá hủy hole lớn, thường kém hiệu quả |
+| **First-Fit** | Hole **đầu tiên theo địa chỉ** có `size >= yêu cầu` | Nhanh, đơn giản | Phân mảnh dồn ở đầu bộ nhớ |
+| **Best-Fit** | Hole **nhỏ nhất** thỏa `size >= yêu cầu` | Giữ lại hole lớn | Duyệt toàn bộ, sinh nhiều mảnh vụn |
+| **Worst-Fit** | Hole **lớn nhất** thỏa `size >= yêu cầu` | Phần dư còn đủ lớn | Phá hole lớn, thường kém hiệu quả |
 
-Sau khi cấp phát, hole bị cắt: phần dư `size − yêu cầu` vẫn là một hole trống (nếu `> 0`). Nếu không có hole phù hợp, yêu cầu được ghi nhận **FAILED**.
+**Quy ước để kết quả tái lập được (deterministic):**
 
-### Pseudocode
+- Duyệt hole theo **địa chỉ bắt đầu tăng dần**.
+- Khi có nhiều hole cùng kích thước (Best/Worst-Fit), chọn hole có **địa chỉ nhỏ nhất**.
+- Cấp phát từ **đầu hole**: `alloc_start = hole.start`; phần dư `hole.start += size`, `hole.size -= size`. Nếu `hole.size == 0` thì xóa hole.
+- Không có hole phù hợp thì ghi `FAILED`; không dừng chương trình, tiếp tục yêu cầu kế tiếp.
+- Mỗi thuật toán chạy trên **bản sao độc lập** của danh sách hole ban đầu.
+
+## 5. Mô tả thuật toán (pseudocode)
 
 ```text
-FIRST_FIT(holes, request):
-    for each hole in holes (theo thứ tự địa chỉ):
-        if hole.size >= request.size:
-            return hole
+FIRST_FIT(holes, size):
+    for h in holes (địa chỉ tăng dần):
+        if h.size >= size: return h
     return NONE
 
-BEST_FIT(holes, request):
+BEST_FIT(holes, size):
     best = NONE
-    for each hole in holes:
-        if hole.size >= request.size and (best == NONE or hole.size < best.size):
-            best = hole
+    for h in holes:
+        if h.size >= size and (best == NONE or h.size < best.size):
+            best = h              # dấu < giữ hole có địa chỉ nhỏ nhất khi bằng nhau
     return best
 
-WORST_FIT(holes, request):
+WORST_FIT(holes, size):
     worst = NONE
-    for each hole in holes:
-        if hole.size >= request.size and (worst == NONE or hole.size > worst.size):
-            worst = hole
+    for h in holes:
+        if h.size >= size and (worst == NONE or h.size > worst.size):
+            worst = h
     return worst
 
-ALLOCATE(holes, request, strategy):
-    h = strategy(holes, request)
-    if h == NONE: ghi trace FAILED; return
-    h.size = h.size - request.size
-    h.start = h.start + request.size
-    nếu h.size == 0 thì xóa h khỏi holes
-    ghi trace ALLOCATED
+SIMULATE(holes, requests, strategy):
+    for each r in requests (theo thứ tự):
+        h = strategy(holes, r.size)
+        if h == NONE:
+            ghi trace(r, FAILED)
+        else:
+            ghi trace(r, ALLOCATED, h.id, alloc_start = h.start)
+            h.start += r.size;  h.size -= r.size
+            if h.size == 0: xóa h khỏi holes
 ```
 
-> Flowchart: xem `docs/flowchart_first_fit.png`, `docs/flowchart_best_fit.png`, `docs/flowchart_worst_fit.png`.
+Flowchart: `docs/flowchart_first_fit.png`, `docs/flowchart_best_fit.png`, `docs/flowchart_worst_fit.png`.
 
 ---
 
-## 4. Công nghệ và yêu cầu kỹ thuật
+## 6. Yêu cầu kỹ thuật
 
-| Hạng mục | Lựa chọn |
+| Yêu cầu | Cách đáp ứng |
 |---|---|
-| Ngôn ngữ | Python 3.10+ *(có thể đổi thành C# / C++ / Java theo nhóm)* |
-| GUI | Tkinter (chạy trên Windows, không phải ứng dụng console) |
-| Kiểm thử | `pytest` |
-| Định dạng dữ liệu | CSV (UTF-8) |
-| Kiến trúc | Tách riêng **tầng logic** (`core/`) và **tầng GUI** (`gui/`) |
+| Ngôn ngữ **C++** | C++17 trở lên |
+| **GUI chạy trên Windows**, không phải console, không phải Web App | Ứng dụng desktop **Qt 6 (Widgets)** |
+| Xử lý lỗi, **không crash** với input hợp lệ | Kiểm tra dữ liệu trước khi chạy, báo lỗi bằng hộp thoại (mục 8) |
+| **Tách phần thuật toán khỏi giao diện** | `src/core` là thư viện C++ thuần (không phụ thuộc Qt); `src/gui` chỉ gọi API của core |
 
-### Yêu cầu hệ thống
+### Công cụ cần có
 
-- Windows 10/11 (khuyến nghị); Linux/macOS có Tkinter cũng chạy được.
-- Python ≥ 3.10.
+- Windows 10/11
+- Visual Studio 2022 (MSVC) hoặc MinGW-w64
+- CMake ≥ 3.21
+- Qt 6.x (Qt Widgets)
+- Git
+
+### Cấu trúc thư mục
+
+```text
+memory-allocation-sim/
+├── README.md
+├── CMakeLists.txt
+├── src/
+│   ├── core/                  # Thuật toán + CSV (KHÔNG dùng Qt)
+│   │   ├── models.hpp         # Hole, Request, TraceRecord, Metrics
+│   │   ├── allocator.hpp/.cpp # First-Fit, Best-Fit, Worst-Fit
+│   │   ├── csv_io.hpp/.cpp    # Đọc / ghi CSV
+│   │   └── validator.hpp/.cpp # Kiểm tra dữ liệu đầu vào
+│   └── gui/                   # Giao diện Qt
+│       ├── main.cpp
+│       └── MainWindow.hpp/.cpp
+├── tests/                     # Unit / integration / stress test
+├── data/
+│   ├── input/                 # CSV mẫu
+│   │   ├── blocks_sample.csv
+│   │   └── requests_sample.csv
+│   └── output/                # Trace/kết quả xuất ra (CSV)
+│       └── expected/          # Kết quả mong đợi để đối chiếu
+└── docs/
+    ├── flowchart_*.png
+    ├── screenshots/
+    ├── test_table.md          # Bảng kiểm thử
+    ├── performance.md
+    └── report.pdf
+```
 
 ---
 
-## 5. Cài đặt và chạy
+## 7. Cài đặt, build và chạy
 
 ```bash
-# 1. Clone repository
-git clone <URL Git repo>
+# 1. Lấy mã nguồn
+git clone <URL repo>
 cd memory-allocation-sim
 
-# 2. (Tùy chọn) Tạo môi trường ảo
-python -m venv .venv
-.venv\Scripts\activate          # Windows
-# source .venv/bin/activate     # Linux/macOS
+# 2. Cấu hình (chỉ đường dẫn tới Qt của máy bạn)
+cmake -S . -B build -DCMAKE_PREFIX_PATH="C:/Qt/6.x.x/msvc2019_64"
 
-# 3. Cài thư viện
-pip install -r requirements.txt
+# 3. Build
+cmake --build build --config Release
 
-# 4. Chạy ứng dụng GUI
-python -m gui.main
+# 4. Gom DLL của Qt để chạy độc lập (Windows)
+windeployqt build/Release/memsim.exe
+
+# 5. Chạy ứng dụng
+build\Release\memsim.exe
 ```
 
-### Chạy kiểm thử
+Chạy kiểm thử:
 
 ```bash
-pytest -v                         # toàn bộ test
-pytest tests/test_unit.py -v      # unit test
-pytest tests/test_stress.py -v    # stress / performance test
+ctest --test-dir build -C Release --output-on-failure
 ```
 
----
+### Hướng dẫn sử dụng GUI
 
-## 6. Hướng dẫn sử dụng GUI
-
-1. Bấm **Open Blocks CSV** để nạp danh sách khối nhớ (hoặc dùng `data/blocks_sample.csv`).
-2. Bấm **Open Requests CSV** để nạp danh sách yêu cầu (hoặc dùng `data/requests_sample.csv`).
+1. Bấm **Open Blocks CSV** và chọn `data/input/blocks_sample.csv`.
+2. Bấm **Open Requests CSV** và chọn `data/input/requests_sample.csv`.
 3. Chọn thuật toán: **First-Fit / Best-Fit / Worst-Fit / So sánh cả ba**.
-4. Bấm **Run** (chạy toàn bộ) hoặc **Step** (từng bước) để quan sát trạng thái bộ nhớ.
-5. Xem bảng kết quả, biểu đồ trực quan bộ nhớ và chỉ số phân mảnh.
-6. Bấm **Export Trace CSV** để xuất trace/kết quả.
+4. Bấm **Run** (chạy hết) hoặc **Step** (từng bước).
+5. Xem **bảng kết quả** và **hình minh họa bộ nhớ**; xem chỉ số phân mảnh và thời gian chạy.
+6. Bấm **Export CSV** để xuất trace/kết quả chi tiết vào `data/output/`.
 
-> Ảnh chụp màn hình: `docs/screenshots/`.
+> Ảnh chụp giao diện: `docs/screenshots/`.
 
 ---
 
-## 7. Dữ liệu vào / ra (CSV)
+## 8. Dữ liệu vào / ra (CSV)
 
-### 7.1. Input – khối nhớ: `blocks.csv`
+Quy ước chung: file **UTF-8**, dấu phân cách **dấu phẩy `,`**, **dòng đầu là tiêu đề** (header), kích thước tính bằng **KB**.
 
-| Cột | Kiểu | Ý nghĩa | Ràng buộc |
-|---|---|---|---|
-| `block_id` | string/int | Mã khối nhớ | Duy nhất, không rỗng |
-| `size` | int | Kích thước (KB) | Số nguyên > 0 |
-
-### 7.2. Input – yêu cầu cấp phát: `requests.csv`
+### 8.1. Input: `blocks.csv` (các hole ban đầu)
 
 | Cột | Kiểu | Ý nghĩa | Ràng buộc |
 |---|---|---|---|
-| `process_id` | string/int | Mã tiến trình | Duy nhất, không rỗng |
-| `size` | int | Kích thước yêu cầu (KB) | Số nguyên > 0 |
+| `block_id` | chuỗi | Mã khối nhớ | Không rỗng, **duy nhất** |
+| `start` | số nguyên ≥ 0 | Địa chỉ bắt đầu | Các hole **không chồng lấn** |
+| `size` | số nguyên > 0 | Kích thước hole | Số nguyên dương |
 
-### 7.3. Output – trace: `trace_<algorithm>.csv`
+### 8.2. Input: `requests.csv` (yêu cầu cấp phát)
+
+| Cột | Kiểu | Ý nghĩa | Ràng buộc |
+|---|---|---|---|
+| `order` | số nguyên ≥ 1 | Thứ tự xử lý | **Duy nhất**; xử lý theo `order` tăng dần |
+| `process_id` | chuỗi | Mã tiến trình | Không rỗng |
+| `size` | số nguyên > 0 | Kích thước yêu cầu | Số nguyên dương |
+
+Hai file trên cùng với các **quy ước ở mục 4** là đủ để tái lập chính xác kết quả.
+
+### 8.3. Output: `trace_<algorithm>.csv` (chi tiết từng bước)
 
 | Cột | Ý nghĩa |
 |---|---|
@@ -166,191 +228,125 @@ pytest tests/test_stress.py -v    # stress / performance test
 | `algorithm` | `FIRST_FIT` / `BEST_FIT` / `WORST_FIT` |
 | `process_id` | Tiến trình được xử lý |
 | `request_size` | Kích thước yêu cầu |
-| `block_id` | Khối được chọn (rỗng nếu thất bại) |
-| `block_size_before` | Kích thước khối trước khi cấp phát |
+| `block_id` | Khối được chọn (rỗng nếu `FAILED`) |
+| `alloc_start` | Địa chỉ được cấp phát (rỗng nếu `FAILED`) |
+| `block_size_before` | Kích thước hole trước khi cấp phát |
 | `block_size_after` | Kích thước phần dư sau khi cấp phát |
 | `status` | `ALLOCATED` / `FAILED` |
 
-### 7.4. Kiểm tra dữ liệu (validation)
+### 8.4. Output: `summary.csv` (kết quả tổng hợp)
 
-Ứng dụng báo lỗi rõ ràng (hiển thị trên GUI, không crash) khi: thiếu cột, file rỗng, giá trị không phải số, kích thước ≤ 0, `id` trùng, sai encoding.
+| Cột | Ý nghĩa |
+|---|---|
+| `algorithm` | Tên thuật toán |
+| `allocated` / `failed` | Số yêu cầu thành công / thất bại |
+| `total_free` | Tổng dung lượng hole còn lại |
+| `largest_free` | Hole lớn nhất còn lại |
+| `time_us` | Thời gian chạy (micro giây) |
 
-### 7.5. Dữ liệu mẫu
+### 8.5. Kiểm tra dữ liệu và xử lý lỗi
 
-`data/blocks_sample.csv`
+Ứng dụng **không crash**; khi gặp lỗi sẽ hiện thông báo nêu rõ **file, dòng, nguyên nhân**:
+
+- File không tồn tại, không mở được, file rỗng, thiếu cột hoặc sai tên cột.
+- Giá trị không phải số, số âm hoặc bằng 0 ở cột `size`.
+- `block_id` / `order` bị trùng; các hole chồng lấn địa chỉ.
+- Dòng thiếu trường, dòng trống ở giữa file.
+
+### 8.6. Dữ liệu mẫu
+
+`data/input/blocks_sample.csv`
 ```csv
-block_id,size
-B1,100
-B2,500
-B3,200
-B4,300
-B5,600
+block_id,start,size
+B1,0,100
+B2,150,500
+B3,700,200
+B4,950,300
+B5,1300,600
 ```
 
-`data/requests_sample.csv`
+`data/input/requests_sample.csv`
 ```csv
-process_id,size
-P1,212
-P2,417
-P3,112
-P4,426
+order,process_id,size
+1,P1,212
+2,P2,417
+3,P3,112
+4,P4,426
 ```
 
 ---
 
-## 8. Tính đúng đắn
+## 9. Kết quả mong đợi và tính đúng đắn
 
-Tính đúng đắn được kiểm chứng bằng **đối chiếu với pseudocode** và **kết quả tính tay (oracle)**. Với dữ liệu mẫu ở mục 7.5:
+Với dữ liệu mẫu ở mục 8.6 (tính tay, dùng làm oracle):
 
-| Tiến trình | First-Fit | Best-Fit | Worst-Fit |
+| Yêu cầu | First-Fit | Best-Fit | Worst-Fit |
 |---|---|---|---|
 | P1 (212) | B2 (500 → 288) | B4 (300 → 88) | B5 (600 → 388) |
 | P2 (417) | B5 (600 → 183) | B2 (500 → 83) | B2 (500 → 83) |
 | P3 (112) | B2 (288 → 176) | B3 (200 → 88) | B5 (388 → 276) |
 | P4 (426) | **FAILED** | B5 (600 → 174) | **FAILED** |
 
-Kết luận minh họa: trên bộ dữ liệu này **Best-Fit cấp phát được cả 4 tiến trình**, còn First-Fit và Worst-Fit thất bại ở P4.
+Nhận xét: trên bộ dữ liệu này **Best-Fit cấp phát thành công cả 4 yêu cầu**, còn First-Fit và Worst-Fit thất bại ở P4.
 
-### Các trường hợp biên đã kiểm tra
-
-- Yêu cầu **bằng đúng** kích thước hole (phần dư = 0, hole bị xóa).
-- Yêu cầu **lớn hơn mọi hole** → `FAILED`.
-- Nhiều hole **cùng kích thước** (quy ước: chọn hole có địa chỉ nhỏ nhất).
-- Danh sách hole rỗng / danh sách yêu cầu rỗng.
-- Kích thước rất lớn (gần giới hạn kiểu số nguyên).
-
-Bảng **Expected vs Actual** đầy đủ: `docs/test_expected_vs_actual.md`.
+Kết quả mong đợi dạng CSV nằm trong `data/output/expected/` để chương trình kiểm thử tự đối chiếu.
 
 ---
 
-## 9. Kiểm thử và hiệu năng
+## 10. Kiểm thử
 
-| Loại | Mô tả | Vị trí |
-|---|---|---|
-| Unit test | Từng hàm chọn hole, cắt hole, validate CSV | `tests/test_unit.py` |
-| Integration test | Nạp CSV → chạy thuật toán → xuất trace | `tests/test_integration.py` |
-| Test oracle | So kết quả với bảng tính tay ở mục 8 | `tests/test_oracle.py` |
-| Stress test | Hàng chục nghìn khối / yêu cầu sinh ngẫu nhiên | `tests/test_stress.py` |
-| Performance | Đo thời gian chạy 3 thuật toán theo kích thước đầu vào | `docs/performance.md` |
+### Bảng kiểm thử
 
-Chỉ số so sánh: số tiến trình cấp phát thành công, **phân mảnh ngoài** (tổng hole còn lại, hole lớn nhất), thời gian thực thi.
+| Mã | Mô tả | Input | Kết quả mong đợi | Kết quả thực tế | Đạt |
+|---|---|---|---|---|---|
+| TC01 | Dữ liệu mẫu, First-Fit | sample | P4 FAILED, 3 cấp phát | `<điền>` | ☐ |
+| TC02 | Dữ liệu mẫu, Best-Fit | sample | Cả 4 ALLOCATED | `<điền>` | ☐ |
+| TC03 | Dữ liệu mẫu, Worst-Fit | sample | P4 FAILED, 3 cấp phát | `<điền>` | ☐ |
+| TC04 | Yêu cầu bằng đúng kích thước hole | hole 100, yêu cầu 100 | Hole bị xóa, phần dư 0 | `<điền>` | ☐ |
+| TC05 | Yêu cầu lớn hơn mọi hole | yêu cầu > max | FAILED, không crash | `<điền>` | ☐ |
+| TC06 | Nhiều hole cùng kích thước | 2 hole bằng nhau | Chọn hole địa chỉ nhỏ hơn | `<điền>` | ☐ |
+| TC07 | Danh sách yêu cầu rỗng | file chỉ có header | Kết quả rỗng, không crash | `<điền>` | ☐ |
+| TC08 | CSV thiếu cột | bỏ cột `size` | Báo lỗi rõ ràng | `<điền>` | ☐ |
+| TC09 | `size` không phải số / âm | `abc`, `-5` | Báo lỗi đúng dòng | `<điền>` | ☐ |
+| TC10 | `block_id` trùng | 2 dòng cùng ID | Báo lỗi trùng ID | `<điền>` | ☐ |
+| TC11 | Dữ liệu lớn (stress) | 100.000 hole, 100.000 yêu cầu | Chạy xong, kết quả nhất quán | `<điền>` | ☐ |
+| TC12 | Tái lập kết quả | chạy 2 lần cùng input | Hai output giống hệt nhau | `<điền>` | ☐ |
 
----
+Bảng đầy đủ: `docs/test_table.md`.
 
-## 10. Cấu trúc thư mục
+### Loại kiểm thử
 
-```text
-memory-allocation-sim/
-├── README.md
-├── requirements.txt
-├── core/                    # Tầng logic (không phụ thuộc GUI)
-│   ├── allocator.py         # First-Fit, Best-Fit, Worst-Fit
-│   ├── models.py            # Block, Request, TraceRecord
-│   └── csv_io.py            # Đọc/ghi/validate CSV
-├── gui/                     # Tầng giao diện
-│   ├── main.py
-│   └── views.py
-├── data/
-│   ├── blocks_sample.csv
-│   ├── requests_sample.csv
-│   └── expected_outputs/    # Kết quả mong đợi để đối chiếu
-├── tests/
-├── docs/
-│   ├── flowchart_*.png
-│   ├── screenshots/
-│   ├── report.pdf           # Báo cáo 8–12 trang
-│   └── slides.pdf
-└── .github/                 # Issue / PR template (nếu có)
-```
+- **Unit test** từng hàm chọn hole, cắt hole, kiểm tra dữ liệu (`tests/`).
+- **Integration test**: nạp CSV → chạy → xuất CSV → so với `expected/`.
+- **Stress / hiệu năng**: đo `time_us` của ba thuật toán với kích thước đầu vào tăng dần (1.000 → 100.000), ghi vào `docs/performance.md`.
 
 ---
 
-## 11. Kế hoạch 8 tuần
+## 11. Sản phẩm bàn giao
 
-| Tuần | Nội dung | Trạng thái |
-|---|---|---|
-| 1 | Chọn đề tài, phân vai, đặc tả yêu cầu, tạo repo | ☐ |
-| 2 | Mô hình dữ liệu, pseudocode/flowchart, kế hoạch test | ☐ |
-| 3–4 | Hiện thực lõi thuật toán (`core/`) | ☐ |
-| 5 | GUI, đọc/ghi CSV, trực quan hóa bộ nhớ | ☐ |
-| 6 | Kiểm thử đúng đắn, edge case, stress/performance | ☐ |
-| 7 | Hoàn thiện, review chéo, sửa lỗi | ☐ |
-| 8 | Báo cáo, video, demo, bảo vệ ngắn | ☐ |
+| Sản phẩm | Vị trí / trạng thái |
+|---|---|
+| Git repository | `<URL repo>` |
+| Ứng dụng chạy được | Build theo mục 7 |
+| Thư mục input/output kèm CSV mẫu | `data/input/`, `data/output/` |
+| README hướng dẫn cài đặt và chạy | File này |
+| Báo cáo | `docs/report.pdf` |
+| Bảng kiểm thử | Mục 10 và `docs/test_table.md` |
+| Video demo công khai | `<URL video>` |
 
----
+## 12. Checklist hoàn thành
 
-## 12. Quản lý repository và tiến độ
+- [ ] Ứng dụng C++ có GUI, chạy được trên Windows, không phải console/Web App.
+- [ ] Phần thuật toán (`src/core`) tách khỏi giao diện (`src/gui`).
+- [ ] Đọc CSV do nhóm định nghĩa, có kiểm tra dữ liệu, không crash với input hợp lệ.
+- [ ] Hiển thị kết quả chính trên màn hình và xuất trace/kết quả chi tiết ra CSV.
+- [ ] Input đủ trường để tái lập; README mô tả định dạng CSV.
+- [ ] Có pseudocode/flowchart; kết quả khớp bảng tính tay.
+- [ ] Có bảng kiểm thử và số liệu đo hiệu năng.
+- [ ] Git repository có lịch sử commit rõ ràng của cả 5 thành viên.
+- [ ] Có báo cáo và video demo công khai, link truy cập hoạt động.
 
-- Commit nhỏ, có ý nghĩa, theo dạng: `feat: ...`, `fix: ...`, `test: ...`, `docs: ...`.
-- Mỗi tính năng làm trên branch riêng, merge qua Pull Request có review.
-- Dùng **Issues** / checklist để theo dõi công việc; giảng viên có thể kiểm tra lịch sử commit vào cuối mỗi tuần.
-- Repo luôn **chạy được** theo hướng dẫn mục 5 trên máy sạch.
+## 13. Hạn chế và hướng phát triển
 
----
-
-## 13. Báo cáo và demo
-
-- **Báo cáo** (8–12 trang, tiếng Việt, thuật ngữ kỹ thuật có thể kèm tiếng Anh lần đầu): giới thiệu, thiết kế, thuật toán, kiểm thử, hiệu năng, hạn chế, phân công. File: `docs/report.pdf`.
-- **Video demo**: trình bày luồng chạy, kết quả, so sánh ba thuật toán. Link: `<URL video>`.
-- **Slide / demo trực tiếp**: `docs/slides.pdf`.
-
----
-
-## 14. Nguồn tham khảo và sử dụng AI
-
-### Tài liệu tham khảo (tối thiểu 4 nguồn)
-
-1. Silberschatz, Galvin, Gagne – *Operating System Concepts* (chương Main Memory).
-2. Tanenbaum, Bos – *Modern Operating Systems* (chương Memory Management).
-3. `<Slide/bài giảng của giảng viên>`
-4. `<Tài liệu/website học thuật khác>`
-
-### Khai báo sử dụng công cụ AI
-
-| Công cụ | Dùng cho việc | Phần được dùng | Cách nhóm kiểm chứng |
-|---|---|---|---|
-| `<Tên công cụ>` | `<Gợi ý ý tưởng / giải thích / sinh test...>` | `<File / mục>` | `<Chạy test, đối chiếu tay, review chéo>` |
-
-Nhóm chịu trách nhiệm hoàn toàn về nội dung nộp và có thể giải thích mọi dòng mã khi được hỏi.
-
----
-
-## 15. Đánh giá cá nhân (contribution statement)
-
-| Thành viên | Đóng góp cụ thể | Tỷ lệ (%) |
-|---|---|---|
-| `<Họ tên>` | `<Mô tả>` | `<..>` |
-| `<Họ tên>` | `<Mô tả>` | `<..>` |
-| `<Họ tên>` | `<Mô tả>` | `<..>` |
-
-Giảng viên có thể hỏi riêng từng thành viên hoặc yêu cầu chạy lại một phần để xác nhận đóng góp.
-
----
-
-## 16. Checklist tiêu chí hoàn thành
-
-- [ ] Ứng dụng chạy được theo README, có GUI (không phải console).
-- [ ] Logic và GUI được tách riêng.
-- [ ] Đọc CSV đầu vào, có validate; hiển thị kết quả và xuất trace/kết quả CSV.
-- [ ] Có dữ liệu mẫu và kết quả mong đợi trong repo.
-- [ ] Có pseudocode/flowchart; kết quả khớp bảng tính tay (oracle).
-- [ ] Có unit/integration test, stress test và đo hiệu năng.
-- [ ] Repo Git có lịch sử commit rõ ràng, có issue/checklist.
-- [ ] Báo cáo 8–12 trang, video demo và slide đã nộp.
-- [ ] Có ít nhất 4 nguồn tham khảo và khai báo sử dụng AI.
-- [ ] Có bảng đóng góp cá nhân.
-
----
-
-## 17. Kết quả mong đợi
-
-Sau dự án, nhóm hiểu và hiện thực được cơ chế **Memory Management** (cấp phát vùng nhớ liên tục), có sản phẩm phần mềm hoàn chỉnh kèm kho Git, bộ kiểm thử, và đánh giá được sự đánh đổi (trade-off) giữa First-Fit, Best-Fit, Worst-Fit về phân mảnh, tốc độ và khả năng sử dụng bộ nhớ.
-
-## 18. Hạn chế và hướng phát triển
-
-- Chưa mô phỏng giải phóng bộ nhớ và gộp hole (coalescing) / nén bộ nhớ (compaction) *(có thể mở rộng)*.
+- Chưa mô phỏng giải phóng bộ nhớ, gộp hole (coalescing) và nén bộ nhớ (compaction).
 - Có thể bổ sung Next-Fit, biểu đồ so sánh động và xuất báo cáo tự động.
-
-## 19. Giấy phép
-
-Dự án phục vụ mục đích học tập. `<Chọn license nếu cần>`
