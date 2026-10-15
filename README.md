@@ -18,11 +18,11 @@ Nhóm **5 sinh viên**, thực hiện trong khoảng **8 tuần**.
 
 | MSSV | Họ tên | Vai trò | Phụ trách chính |
 |---|---|---|---|
-| `068207013575` | `Nguyễn Văn Trung` | Trưởng nhóm / Quản lý tiến độ | Kế hoạch, theo dõi issue, review & merge PR, tích hợp |
+| `068207013575` | `Nguyễn Văn Trung` | Trưởng nhóm | Kế hoạch, theo dõi issue, review & merge PR, tích hợp |
 | `089207010161` | `Trần Lê Phước Gia Hưng` | Thành viên | Cài đặt First/Best/Worst-Fit, pseudocode, flowchart |
 | `089207017978` | `Nguyễn Thế Vinh` | Thành viên | Mô hình dữ liệu, đo hiệu năng, tối ưu |
-| `079207020882` | `Trịnh Hoàng Hải` | Thành viên / Dữ liệu | GUI, đọc/ghi CSV, kiểm tra dữ liệu, xử lý lỗi |
-| `068207002805` | `Sú Tường Phúc Minh` | Thành viên / Tài liệu | Bảng kiểm thử, báo cáo, video demo |
+| `079207020882` | `Trịnh Hoàng Hải` | Thành viên  | GUI, đọc/ghi CSV, kiểm tra dữ liệu, xử lý lỗi |
+| `068207002805` | `Sú Tường Phúc Minh` | Thành viên | Bảng kiểm thử, báo cáo, video demo |
 
 | Thông tin | Nội dung |
 |---|---|
