@@ -18,11 +18,11 @@ Nhóm **5 sinh viên**, thực hiện trong khoảng **8 tuần**.
 
 | MSSV | Họ tên | Vai trò | Phụ trách chính |
 |---|---|---|---|
-| `<MSSV>` | `<Họ tên>` | Trưởng nhóm / Quản lý tiến độ | Kế hoạch, theo dõi issue, review & merge PR, tích hợp |
-| `<MSSV>` | `<Họ tên>` | Thuật toán | Cài đặt First/Best/Worst-Fit, pseudocode, flowchart |
-| `<MSSV>` | `<Họ tên>` | Thuật toán | Mô hình dữ liệu, đo hiệu năng, tối ưu |
-| `<MSSV>` | `<Họ tên>` | Giao diện / Dữ liệu | GUI, đọc/ghi CSV, kiểm tra dữ liệu, xử lý lỗi |
-| `<MSSV>` | `<Họ tên>` | Kiểm thử / Tài liệu | Bảng kiểm thử, báo cáo, video demo |
+| `<068207013575>` | `<Nguyễn Văn Trung>` | Trưởng nhóm / Quản lý tiến độ | Kế hoạch, theo dõi issue, review & merge PR, tích hợp |
+| `<089207010161>` | `<Trần Lê Phước Gia Hưng>` | Thành viên | Cài đặt First/Best/Worst-Fit, pseudocode, flowchart |
+| `<089207017978>` | `<Nguyễn Thế Vinh>` | Thành viên | Mô hình dữ liệu, đo hiệu năng, tối ưu |
+| `<079207020882>` | `<Trịnh Hoàng Hải>` | Thành viên / Dữ liệu | GUI, đọc/ghi CSV, kiểm tra dữ liệu, xử lý lỗi |
+| `<068207002805>` | `<Sú Tường Phúc Minh>` | Thành viên / Tài liệu | Bảng kiểm thử, báo cáo, video demo |
 
 | Thông tin | Nội dung |
 |---|---|
@@ -334,19 +334,3 @@ Bảng đầy đủ: `docs/test_table.md`.
 | Bảng kiểm thử | Mục 10 và `docs/test_table.md` |
 | Video demo công khai | `<URL video>` |
 
-## 12. Checklist hoàn thành
-
-- [ ] Ứng dụng C++ có GUI, chạy được trên Windows, không phải console/Web App.
-- [ ] Phần thuật toán (`src/core`) tách khỏi giao diện (`src/gui`).
-- [ ] Đọc CSV do nhóm định nghĩa, có kiểm tra dữ liệu, không crash với input hợp lệ.
-- [ ] Hiển thị kết quả chính trên màn hình và xuất trace/kết quả chi tiết ra CSV.
-- [ ] Input đủ trường để tái lập; README mô tả định dạng CSV.
-- [ ] Có pseudocode/flowchart; kết quả khớp bảng tính tay.
-- [ ] Có bảng kiểm thử và số liệu đo hiệu năng.
-- [ ] Git repository có lịch sử commit rõ ràng của cả 5 thành viên.
-- [ ] Có báo cáo và video demo công khai, link truy cập hoạt động.
-
-## 13. Hạn chế và hướng phát triển
-
-- Chưa mô phỏng giải phóng bộ nhớ, gộp hole (coalescing) và nén bộ nhớ (compaction).
-- Có thể bổ sung Next-Fit, biểu đồ so sánh động và xuất báo cáo tự động.
