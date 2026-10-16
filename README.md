@@ -26,10 +26,9 @@ Nhóm **5 sinh viên**, thực hiện trong khoảng **8 tuần**.
 
 | Thông tin | Nội dung |
 |---|---|
-| Nhóm / Lớp | `<Tên nhóm>` – `<Mã lớp>` |
-| Giảng viên | `<Tên giảng viên>` |
-| Git repository | `<URL repo>` |
-| Video demo (công khai) | `<URL video>` |
+| Nhóm / Lớp | `OS_2627105_08` – `012012500105` |
+| Giảng viên | `Mai Ngọc Châu` |
+
 
 ### Kế hoạch 8 tuần
 
@@ -47,11 +46,10 @@ Nhóm **5 sinh viên**, thực hiện trong khoảng **8 tuần**.
 
 ## 3. Nhiệm vụ
 
-1. **Phân tích yêu cầu** – xem mục 4.
-2. **Mô tả thuật toán** bằng pseudocode / flowchart – xem mục 5.
-3. **Xây dựng ứng dụng** C++ có GUI – xem mục 6, 7, 8.
-4. **Kiểm thử** với dữ liệu có thể tái lập – xem mục 10.
-5. **Viết báo cáo** và **nộp mã nguồn đầy đủ** – xem mục 12.
+1. **Phân tích yêu cầu**
+2. **Mô tả thuật toán**
+3. **Xây dựng ứng dụng**
+5. **Viết báo cáo**
 
 ---
 
@@ -112,12 +110,12 @@ Flowchart: `docs/flowchart_first_fit.png`, `docs/flowchart_best_fit.png`, `docs/
 
 ## 6. Yêu cầu kỹ thuật
 
-| Yêu cầu | Cách đáp ứng |
+| Yêu cầu |  |
 |---|---|
-| Ngôn ngữ **C++** | C++17 trở lên |
-| **GUI chạy trên Windows**, không phải console, không phải Web App | Ứng dụng desktop **Qt 6 (Widgets)** |
-| Xử lý lỗi, **không crash** với input hợp lệ | Kiểm tra dữ liệu trước khi chạy, báo lỗi bằng hộp thoại (mục 8) |
-| **Tách phần thuật toán khỏi giao diện** | `src/core` là thư viện C++ thuần (không phụ thuộc Qt); `src/gui` chỉ gọi API của core |
+| Ngôn ngữ **C++** |  
+| **GUI chạy trên Windows**, không phải console, không phải Web App |  
+| Xử lý lỗi, **không crash** với input hợp lệ | 
+| **Tách phần thuật toán khỏi giao diện** | 
 
 ### Công cụ cần có
 
